@@ -1,6 +1,3 @@
-> [!CAUTION]
-> В разработке
-
 > [!NOTE]
 > В первую очередь я пишу этот мануал для себя, собирая информацию по профильным чатам и тестируя решения методом проб и ошибок. Написанное здесь - не истина в последней инстанции, а лишь мой опыт.
 
@@ -204,3 +201,12 @@ curl -s http://127.0.0.1:9091/v1/users | jq -r '.data[] | "[\(.username)]", (.li
 > ```
 > journalctl -u telemt -f
 > ```
+> 
+## Обновление Telemt
+
+```
+systemctl stop telemt
+wget -qO- "https://github.com/telemt/telemt/releases/latest/download/telemt-$(uname -m)-linux-$(ldd --version 2>&1 | grep -iq musl && echo musl || echo gnu).tar.gz" | tar -xz
+mv telemt /bin
+systemctl start telemt
+```
